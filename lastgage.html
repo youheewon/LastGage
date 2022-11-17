@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="style.css"/>
+  
+ <script>
+  function laga(){
+    var num = Math.round(document.getElementById('hosu').value);
+    if(num == 3000){
+      document.getElementById('ee').innerHTML = num + "호(사격지휘장갑차)";
+      document.getElementById('ee').value = num;  
+      return num;
+    }if(num == 3001 || num == 3002 || num == 3003 || num == 3005 || num == 3006 || num == 3007){
+      document.getElementById('ee').innerHTML = num + "호(화포)";
+      document.getElementById('ee').value = num;  
+      return num;
+    }if(num == 3100 || num == 3200 || num == 3300){
+      document.getElementById('ee').innerHTML = num + "호(탄약운반장갑차)";
+      document.getElementById('ee').value = num;  
+      return num;
+    }else{
+      alert("입력된 화포를 찾을 수 없습니다. \n 다시 입력해주십쇼. 입력 예.)3xxx");  
+    }
+       
+  }
+  
+  function check(){
+    var ch = document.getElementById('ee').value;
+    if(ch != undefined){
+      document.getElementById('lastGage_number').innerHTML = "["+ch+ "호 라스트 게이지]";
+      return ch;
+    }else{
+      return false;
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <h1>
+  <a id="header" href="file:///tmp/coding/practice/주간장비정검/index.html">주간장비정검 </a>
+  </h1>
+  <div id="info_number">
+    <label>화포 호수를 입력하세요.</label><br>
+    <input type="number" id="hosu">
+    <button onclick="laga(),check()">입력</button>
+  </div>  
+  
+  <h2 id="ee"></h2>	
+  
+  <div id="lastGage">
+    <h3 id="lastGage_number"></h3>
+    <div class="lastGage_list">
+      <label>날짜</label>
+      <input type="date" id="today"> <button type="button" >조회</button>
+      <p id="day"></p>
+      
+      <h4>-rpm-</h4>
+      <p id="rpm"></p>
+
+      <h4>-km-</h4>
+      <p id="km"></p>
+
+      <h4>-APU-</h4>
+      <p id="apu"></p>    
+    </div>
+  </div>
+   
+</body>
+</html>
+<!-- 
+
+rpm,km,apu값 입력(오늘측정한값&괄호안 라게) -> 옆에 '입력한 값' 출력, 지난 주와의 변화량 출력, 누적 라게 출력.
+-> button type submit [저장]사용해서 입력된 값 폼으로 제출
+-> 데이터를 form이든 뭐든으로 제출하고나서 서버나 다른 파일에 저장시킬 방법 찾아야함 or 불러와서 사용할 방법 찾아야함. 
+-> 함수를 만들고 변수 preData, newData 같이 만들어서 지난주와 이번주 차이 구할 수 있게 해야함.
+-> 누적라게 구하게 괄호안에 있는 라게를 저장할 변수를 지정.
+날짜에 맞게 조회할 수 있게 하고 싶음.-> 날짜 옆 조회 누르면 그 날짜에 관련된 파일 or 데이터 불러와 표시
+-> 위에 파트랑 분리해야하나?
+-> 수정 버튼 누르기 전에는 input칸 안뜨게 해야할듯..?
+-> 수정 버튼 옆에 저장버튼도 만들어서 누르면 값 바꾸고 input칸 사라지게!
+https://danbi-s-rain.gitbook.io/blog/coding/javascript/clientside-javascript/storage
+
