@@ -1,15 +1,37 @@
+body{
+  margin: 0 auto;
+}
+
+h1{
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  
+}
+#header{
+  
+}
 #info_number{
+  margin: 0 auto;
   border: 2px black solid;
   padding: 10px;
   width: 220px;
   }
-  #lastGage{
+#lastGage{
+  margin: 0 auto;
   border: 2px black solid;  
   width: 500px;
   height: 500px;
-  }
-  h3{
+}
+h3{
   color: gray;  
   margin-left: 12px;
   margin-top: 5px;
-  }
+}
+
+h4{
+  padding-left: 10px;
+}
+#ee{
+  text-align: center;
+}

@@ -34,12 +34,42 @@
       return false;
     }
   }
+  function getChosenDay(){
+    let num = document.getElementById('ee').value;  
+    var date = new Date(document.getElementById('today').value);
+    var year = date.getFullYear();
+    var month = 1 + date.getMonth();
+    var day = date.getDate();
+    
+    if (month < 10){
+    month = "0"+month;    
+    }
+    if (day < 10){
+    day = "0"+day;
+    }
+    
+    console.log(Number.isNaN(year));
+    console.log(num);
+    if(Number.isNaN(year)==false && num!=undefined){
+      document.getElementById('chosen_day').innerHTML = "Day : "+year+"-"+month+"-"+day;
+      return year+"-"+month+"-"+day;
+    }else if(Number.isNaN(year)==true && num!=undefined){
+      alert("날짜를 선택해주세요!");
+      return false;
+    }else if(Number.isNaN(year)==false && num==undefined){
+      alert("화포가 입력 되어있지 않습니다. 화포 호수를 입력 후 입력을 눌러주세요.");
+      return false;
+    }else{
+      alert("날짜와 화포 호수를 입력해주세요!");
+      return false;
+    }
+  }
   </script>
 </head>
 
 <body>
   <h1>
-  <a id="header" href="index.html">주간장비정검 </a>
+  <a id="header" href="file:///tmp/coding/practice/주간장비정검/index.html">주간장비정검 </a>
   </h1>
   <div id="info_number">
     <label>화포 호수를 입력하세요.</label><br>
@@ -47,23 +77,23 @@
     <button onclick="laga(),check()">입력</button>
   </div>  
   
-  <h2 id="ee"></h2>	
+  <h2 id="ee"></h2>
   
   <div id="lastGage">
     <h3 id="lastGage_number"></h3>
     <div class="lastGage_list">
       <label>날짜</label>
-      <input type="date" id="today"> <button type="button" >조회</button>
-      <p id="day"></p>
+      <input type="date" id="today"> <button type="button" onclick="getChosenDay()" >조회</button>
+      <p id="chosen_day">날짜(조회한 날짜)</p>
       
       <h4>-rpm-</h4>
-      <p id="rpm"></p>
+      <p id="rpm">조회한 날짜에 증가한rpm, 누적rpm</p>
 
       <h4>-km-</h4>
-      <p id="km"></p>
+      <p id="km">조회한 날짜에 증가한km, 누적km</p>
 
       <h4>-APU-</h4>
-      <p id="apu"></p>    
+      <p id="apu">조회한 날짜에 증가한apu, 누적apu</p>    
     </div>
   </div>
    
@@ -81,4 +111,5 @@ rpm,km,apu값 입력(오늘측정한값&괄호안 라게) -> 옆에 '입력한 �
 -> 수정 버튼 누르기 전에는 input칸 안뜨게 해야할듯..?
 -> 수정 버튼 옆에 저장버튼도 만들어서 누르면 값 바꾸고 input칸 사라지게!
 https://danbi-s-rain.gitbook.io/blog/coding/javascript/clientside-javascript/storage
+https://www.math4u.kr/bbs/29469
 
