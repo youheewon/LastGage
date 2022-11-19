@@ -63,7 +63,7 @@
     }
   }
   function edit_laga(){
-    var link_laga = "file:///tmp/coding/practice/주간장비정검/"+document.getElementById('ee').value+".html";
+    var link_laga = document.getElementById('ee').value+".html";
     if(document.getElementById('ee').value != undefined){
       return link_laga;
     }else{
@@ -72,7 +72,7 @@
     }
   }
   function save_laga(){
-    var save_to = "file:///tmp/coding/practice/주간장비정검/"+document.getElementById('ee').value+".html";
+    var save_to = document.getElementById('ee').value+".html";
     if(document.getElementById('ee').value != undefined){
       return save_to;
     }else{
@@ -85,7 +85,7 @@
 
 <body>
   <h1>
-  <a id="header" href="file:///tmp/coding/practice/주간장비정검/index.html">주간장비정검 </a>
+  <a id="header" href="index.html">주간장비정검 </a>
   </h1>
   <div id="info_number">
     <label>화포 호수를 입력하세요.</label><br>
