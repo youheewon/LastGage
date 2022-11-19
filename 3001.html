@@ -34,6 +34,67 @@
       return false;
     }
   }
+  function getChosenDay(){
+    let num = document.getElementById('ee').value;  
+    var date = new Date(document.getElementById('today').value);
+    var year = date.getFullYear();
+    var month = 1 + date.getMonth();
+    var day = date.getDate();
+    
+    if (month < 10){
+    month = "0"+month;    
+    }
+    if (day < 10){
+    day = "0"+day;
+    }
+    
+    if(Number.isNaN(year)==false && num!=undefined){
+      document.getElementById('chosen_day').innerHTML = "Day : "+year+"-"+month+"-"+day;
+      return year+"-"+month+"-"+day;
+    }else if(Number.isNaN(year)==true && num!=undefined){
+      alert("날짜를 선택해주세요!");
+      return false;
+    }else if(Number.isNaN(year)==false && num==undefined){
+      alert("화포가 입력 되어있지 않습니다. 화포 호수를 입력 후 입력을 눌러주세요.");
+      return false;
+    }else{
+      alert("날짜와 화포 호수를 입력해주세요!");
+      return false;
+    }
+  }
+  function edit_laga(){
+    var link_laga = "file:///tmp/coding/practice/주간장비정검/"+document.getElementById('ee').value+".html";
+    if(document.getElementById('ee').value != undefined){
+      document.getElementById('ss').innerHTML = link_laga;
+      return link_laga;
+    }else{
+      alert("화포 호수와 날짜를 입력해주세요.");
+      return '#';
+    }
+  }
+  function save_laga(){
+    var save_to = "file:///tmp/coding/practice/주간장비정검/"+document.getElementById('ee').value+".html";
+    if(document.getElementById('ee').value != undefined){
+      return save_to;
+    }else{
+      alert("화포 호수와 날짜를 입력해주세요.");
+      return '#';
+    }
+  }
+  //각각 라게 항목들 데이터 저장하기
+  var upRpm;
+  var totalRpm=0; 
+
+  function putRpm(){
+    var changedRpm = Number(document.getElementById('rpm_edit').value);
+    var stackRpm = Number(document.getElementById('org_rpm_edit').value);
+    
+    document.getElementById('rpm').innerHTML = changedRpm;
+    document.getElementById('org_rpm').innerHTML = (this.totalRpm + changedRpm).toFixed(1);
+    this.upRpm = changedRpm;
+    this.totalRpm = this.totalRpm + changedRpm;
+    return changedRpm, totalRpm;
+  }
   </script>
 </head>
 
@@ -47,8 +108,10 @@
     <button onclick="laga(),check()">입력</button>
   </div>  
   
-  <h2 id="ee"></h2>	
+  <h2 id="ee">3001호(화포)</h2>	
   
+  <button type="submit" id="edit_button" onclick="location.href='file:///tmp/coding/practice/주간장비정검/lastgage.html'">저장</button>
+
   <div id="lastGage">
     <h3 id="lastGage_number"></h3>
     <div class="lastGage_list">
@@ -57,13 +120,26 @@
       <p id="day"></p>
       
       <h4>-rpm-</h4>
-      <p id="rpm"></p>
+      <label id="rpm" sytle="width:10px"><script>document.write(this.upRpm);</script></label>
+      <input type="number" id="rpm_edit" size=10/ min="0.0999">
+      <label id="org_rpm"><script>document.write(this.totalRpm);</script></label>
+      <input type="number" id="org_rpm_edit" size=30/>
+      <button type="button" onclick="putRpm()">저장</button>
 
       <h4>-km-</h4>
-      <p id="km"></p>
+      <label id="km">증가한km에요</label>
+      <input type="number" id="km_edit" size=10>
+      <label id="org_km">누적km에요</label>
+      <input type="number" id="org_km_edit" size=10/>  
+      <button type="button" onclick="">저장</button>        
 
       <h4>-APU-</h4>
-      <p id="apu"></p>    
+      <label id="apu">증가한apu에요</label>
+      <input type="number" id="apu_edit" size=10>
+      <label id="org_apu">누적apu에요</label> 
+      <input type="number" id="org_apu_edit" size=10>
+      <button type="button" onclick="">저장</button>
+   
     </div>
   </div>
    

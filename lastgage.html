@@ -47,9 +47,7 @@
     if (day < 10){
     day = "0"+day;
     }
-    
-    console.log(Number.isNaN(year));
-    console.log(num);
+
     if(Number.isNaN(year)==false && num!=undefined){
       document.getElementById('chosen_day').innerHTML = "Day : "+year+"-"+month+"-"+day;
       return year+"-"+month+"-"+day;
@@ -64,21 +62,41 @@
       return false;
     }
   }
+  function edit_laga(){
+    var link_laga = "file:///tmp/coding/practice/주간장비정검/"+document.getElementById('ee').value+".html";
+    if(document.getElementById('ee').value != undefined){
+      return link_laga;
+    }else{
+      alert("화포 호수와 날짜를 입력해주세요.");
+      return '#';
+    }
+  }
+  function save_laga(){
+    var save_to = "file:///tmp/coding/practice/주간장비정검/"+document.getElementById('ee').value+".html";
+    if(document.getElementById('ee').value != undefined){
+      return save_to;
+    }else{
+      alert("화포 호수와 날짜를 입력해주세요.");
+      return '#';
+    }
+  }
   </script>
 </head>
 
 <body>
   <h1>
-  <a id="header" href="index.html">주간장비정검 </a>
+  <a id="header" href="file:///tmp/coding/practice/주간장비정검/index.html">주간장비정검 </a>
   </h1>
   <div id="info_number">
     <label>화포 호수를 입력하세요.</label><br>
     <input type="number" id="hosu">
     <button onclick="laga(),check()">입력</button>
-  </div>  
-  
+  </div> 
+
   <h2 id="ee"></h2>
-  
+
+  <button type="submit" id="edit_button" onclick="location.href=edit_laga()">수정</button>
+
   <div id="lastGage">
     <h3 id="lastGage_number"></h3>
     <div class="lastGage_list">
@@ -87,13 +105,18 @@
       <p id="chosen_day">날짜(조회한 날짜)</p>
       
       <h4>-rpm-</h4>
-      <p id="rpm">조회한 날짜에 증가한rpm, 누적rpm</p>
+      <button type="button" onclick="haha()">rpm</button>
+      <label id="rpm">증가한rpm이에요</label>
+      <label id="org_rpm">누적rpm이에요</label>
 
       <h4>-km-</h4>
-      <p id="km">조회한 날짜에 증가한km, 누적km</p>
+      <label id="km">증가한km에요</label>
+      <label id="org_km">누적km에요</label>
 
       <h4>-APU-</h4>
-      <p id="apu">조회한 날짜에 증가한apu, 누적apu</p>    
+      <label id="apu">증가한apu에요</label>
+      <label id="org_apu">누적apu에요</label> 
+  
     </div>
   </div>
    

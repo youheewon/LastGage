@@ -8,7 +8,9 @@ h1{
   text-align: center;
   
 }
-
+#header{
+  
+}
 #info_number{
   margin: 0 auto;
   border: 2px black solid;
@@ -17,9 +19,10 @@ h1{
   }
 #lastGage{
   margin: 0 auto;
-  border: 2px black solid;  
-  width: 500px;
-  height: 500px;
+  border-top: 2px black solid;  
+  border-bottom: 2px black solid; 
+  width: 0 auto;
+  text-align: center;
 }
 h3{
   color: gray;  
@@ -32,4 +35,7 @@ h4{
 }
 #ee{
   text-align: center;
+}
+#edit_button{
+  float: right;
 }
