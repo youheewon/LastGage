@@ -1,26 +1,30 @@
 body{
   margin: 0 auto;
+  background-color:black;
+  color:white;
 }
 
 h1{
   margin: 0 auto;
-  width: 300px;
+
   text-align: center;
-  
 }
 #header{
-  
+  font-size:400%;
+  color: white;
 }
 #info_number{
   margin: 0 auto;
-  border: 2px black solid;
+  border: 4px white solid;
   padding: 10px;
-  width: 220px;
-  }
+  width: 500px;
+  height: 200px;
+  font-size: 250%;
+}
 #lastGage{
   margin: 0 auto;
-  border-top: 2px black solid;  
-  border-bottom: 2px black solid; 
+  border-top: 2px white solid;  
+  border-bottom: 2px white solid; 
   width: 0 auto;
   text-align: center;
 }
@@ -38,4 +42,9 @@ h4{
 }
 #edit_button{
   float: right;
+}
+#hosu,.input_data{
+  width:120px;
+  height:50px;
+  font-size:10px;
 }
