@@ -5,6 +5,9 @@
   <link rel="stylesheet" href="style.css"/>
   
  <script>
+  //전역변수 zone
+
+  //package, import, @Controller 공부하기 jminie.tistory.com/44#recentEntries
   function laga(){
     var num = Math.round(document.getElementById('hosu').value);
     if(num == 3000){
@@ -63,7 +66,7 @@
     }
   }
   function edit_laga(){
-    var link_laga = document.getElementById('ee').value+".html";
+    var link_laga = document.getElementById('ee')+'.html';
     if(document.getElementById('ee').value != undefined){
       document.getElementById('ss').innerHTML = link_laga;
       return link_laga;
@@ -82,31 +85,82 @@
     }
   }
   //각각 라게 항목들 데이터 저장하기
-  var upRpm;
-  var totalRpm=0; 
+  var lastgage_3001 = {
+    total_rpm: 0,
+    inc_rpm: 0,
+    total_km: 0,
+    inc_km: 0,
+    total_apu: 0,
+    inc_apu: 0
 
-  function putRpm(){
-    var changedRpm = Number(document.getElementById('rpm_edit').value);
-    var stackRpm = Number(document.getElementById('org_rpm_edit').value);
+  };
+  console.log(lastgage_3001);
+  //라게 토탈 항목 선언 밑 초기화.
+  var tRpm = 0;
+  var tKm = 0;
+  var tApu = 0;
+
+  function re_register(){
+  //rpm 증가, 토탈값 입력받는 코드
+    var YN;
+    let iRpm = Number(document.getElementById('data_irpm').value); 
+    let new_tRpm = Number(document.getElementById('data_trpm').value);   
+    YN = alam();
+    if(YN == 'y' || YN == 'Y'){
+      new_tRpm = new_tRpm + iRpm;
+      this.tRpm = new_tRpm;   
+      this.lastgage_3001.total_rpm = Number(new_tRpm.toFixed(1));
+      document.getElementById('data_irpm').value = "";
+      document.getElementById('data_trpm').value = "";
+     }else if(YN == 'n' || YN == 'N'){
+      if(document.getElementById('data_trpm').value != "" || document.getElementById('data_irpm').value != ""){
+        tRpm = Number(tRpm) + Number(iRpm);
+        this.lastgage_3001.total_rpm = Number(tRpm.toFixed(1));
+        document.getElementById('data_irpm').value = "";
+        document.getElementById('data_trpm').value = "";
+      }else{
+        alert("경고! : 변경할 값을 입력해주세요.");
+        let a = JSON.parse(localStorage.getItem('saving_lastgage'));        
+        this.lastgage_3001.total_rpm = a['total_rpm'];        
+       }
+     }
+
+    let iKm = document.getElementById('data_ikm').value;
+    let tKm = document.getElementById('data_tkm').value;
     
-    document.getElementById('rpm').innerHTML = changedRpm;
-    document.getElementById('org_rpm').innerHTML = (this.totalRpm + changedRpm).toFixed(1);
-    this.upRpm = changedRpm;
-    this.totalRpm = this.totalRpm + changedRpm;
-    return changedRpm, totalRpm;
+    let iApu = document.getElementById('data_iapu').value;    
+    let tApu = document.getElementById('data_tapu').value;
+    //rpm 값을 객체 lastgage_3001에 저장 
+    this.lastgage_3001.inc_rpm = iRpm;
+    
+
+    this.lastgage_3001.inc_km = document.getElementById('data_ikm').value;
+    this.lastgage_3001.total_km = document.getElementById('data_tkm').value;
+
+    this.lastgage_3001.inc_apu = document.getElementById('data_iapu').value;    
+    this.lastgage_3001.total_apu = document.getElementById('data_tapu').value;
+    console.log("라게 스토리지x: ", this.lastgage_3001);
+    //lastgage_3001에 데이터값 전부 저장하고 로컬스토리지에 lastgage_3001을 저장
+    localStorage.saving_lastgage = JSON.stringify(lastgage_3001); 
+    console.log("새로운 rpm : ", new_tRpm);
+    console.log("YN : ", YN);
+    
+      
+  }
+  function show_log(){
+    console.log("라게(로컬스토리지x)\n",lastgage_3001);
+    let bringLastgage = JSON.parse(localStorage.getItem('saving_lastgage'));
+    console.log("라게(로컬스토리지o)\n", bringLastgage);
+    document.getElementById('showRpm').innerHTML = bringLastgage['inc_rpm'];//this.lastgage_3001['inc_rpm'];//bringLastgage['inc_rpm'];
+    document.getElementById('showTotalRpm').innerHTML = bringLastgage['total_rpm'];//this.lastgage_3001['total_rpm']; //bringLastgage['total_rpm'];
   }
   </script>
 </head>
 
 <body>
   <h1>
-  <a id="header" href=index.html">주간장비정검 </a>
+  <a id="header" href="index.html">주간장비정검 </a>
   </h1>
-  <div id="info_number">
-    <label>화포 호수를 입력하세요.</label><br>
-    <input type="number" id="hosu">
-    <button onclick="laga(),check()">입력</button>
-  </div>  
   
   <h2 id="ee">3001호(화포)</h2>	
   
@@ -120,26 +174,48 @@
       <p id="day"></p>
       
       <h4>-rpm-</h4>
-      <label id="rpm" sytle="width:10px"><script>document.write(this.upRpm);</script></label>
-      <input type="number" id="rpm_edit" size=10/ min="0.0999">
-      <label id="org_rpm"><script>document.write(this.totalRpm);</script></label>
-      <input type="number" id="org_rpm_edit" size=30/>
-      <button type="button" onclick="putRpm()">저장</button>
+      <label>rpm : </label><label id="showRpm"></label>
+      <input type="number" placeholder="이번 주 증가한 rpm 입력." id="data_irpm" class="input_data" />
+      <label>Total rpm : </label><label id="showTotalRpm"></label>
+      <input type="number" placeholder="토탈 rpm 수정 시 입력." id="data_trpm" class="input_data"/>
+      <input type="button" onclick="re_register(), show_log()" value="저장"/>
 
       <h4>-km-</h4>
-      <label id="km">증가한km에요</label>
-      <input type="number" id="km_edit" size=10>
-      <label id="org_km">누적km에요</label>
-      <input type="number" id="org_km_edit" size=10/>  
-      <button type="button" onclick="">저장</button>        
+      <label>km : </label><label id="showRpm"></label>
+      <input type="number" placeholder="이번 주 증가한 km 입력." id="data_ikm" class="input_data"/>
+      <label>Total km : </label><label id="showTotalRpm"></label>
+      <input type="number" placeholder="토탈 km 수정 시 입력." id="data_tkm" class="input_data"/>
+      <input type="button" onclick="re_register(), show_log()" value="저장"/>        
 
       <h4>-APU-</h4>
-      <label id="apu">증가한apu에요</label>
-      <input type="number" id="apu_edit" size=10>
-      <label id="org_apu">누적apu에요</label> 
-      <input type="number" id="org_apu_edit" size=10>
-      <button type="button" onclick="">저장</button>
+      <label>APU : </label><label id="showRpm"></label>
+      <input type="number" placeholder="이번 주 증가한 apu 입력." id="data_iapu" class="input_data"/>
+      <label>Total APU : </label><label id="showTotalRpm"></label>
+      <input type="number" placeholder="토탈 apu 수정 시 입력." id="data_tapu" class="input_data"/>
+      <input type="button" onclick="re_register(), show_log()" value="저장"/>
+    <script>
+       //여기 언저리에서 이벤트 리스너 click으로 토탈rpm 인풋에 click 하면 경고창으로 한번 더 수정할거냐고 묻는 이벤트 만들거임
+      function alam(){
+        let i = document.getElementById('data_trpm').value;
+        console.log("data_trpm.value : ",i);
+        console.log("type of i = ",typeof i);  
+        if(i == ""){
+          return 'n';
+         }else{
+          a = prompt("정말로 누적 rpm을 수정하시겠습니까?\n 맞으면 y, 아니면 n을 입력해주세요. \n(보통 수정은 계기판 초기화 때 실시합니다. 이 점 유의 해주십시오.)");
+          return a;
+        }
+       }
+      /*
+      var make_event = document.getElementById('data_trpm');
+      var delete_event = document.getElementById('edit_button');
+      function de_alam(){
+        delete_event.removeEventListener("click",alam);
+      }
+      this.make_event.addEventListener("click",alam); 
+      */
    
+    </script>
     </div>
   </div>
    
